@@ -70,9 +70,7 @@ def account():
 def user_posts(username):
     page = request.args.get('page', 1, type=int)
     user = User.objects(username=username).first_or_404()
-    posts = Post.objects(author=user)\
-        .order_by(Post.date_posted.desc())\
-        .paginate(page=page, per_page=5)
+    posts = Post.objects(user_id=user)
     return render_template('user_posts.html', posts=posts, user=user)
 
 

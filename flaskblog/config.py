@@ -12,7 +12,7 @@ class Config:
     MAIL_PASSWORD = os.environ.get('EMAIL_PASS')
     
     MONGODB_SETTINGS = {
-        'username': os.environ.get("MONGODB_BLOG_USERNAME"),
-        'password': os.environ.get("MONGODB_BLOG_PASSWORD"),
-        'host': os.environ.get("MONGODB_DATABASE_BLOG_URI")
-    }
+        'username': 'IwonaZ',
+        'password': 'Polska1410',
+        'host': 'mongodb+srv://cluster0.u2lpx.mongodb.net/mongoblog'
+        }

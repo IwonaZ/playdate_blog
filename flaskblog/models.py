@@ -17,6 +17,8 @@ class User(db.Document, UserMixin):
     image_file = db.StringField(nullable=False, default='default.jpg')
     password = db.StringField(nullable=False)
     posts = db.ReferenceField('Post')
+    address = db.StringField(max_length=150, nullable=False)
+    location = db.PointField()
 
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
@@ -33,14 +35,35 @@ class User(db.Document, UserMixin):
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
+    
+class Language(db.EmbeddedDocument):
+    language_name = db.StringField()
+    
+    def __repr__(self):
+        return f"Language('{self.language_name}')"
 
 
 class Post(db.Document):
     #id = db.Column(db.Integer, primary_key=True)
     title = db.StringField(nullable=False)
     date_posted = db.DateField(nullable=False, default=datetime.utcnow)
-    content = db.stringField(nullable=False)
+    content = db.StringField(nullable=False)
     user_id = db.ReferenceField('User')
+    gender = db.StringField()
+    age = db.IntField(nullable=False)
+    #language_lerning = db.ListField(db.ReferenceField('Language'))
+    #language_speaking = db.ListField(db.ReferenceField('Language'))
+    language_learning = db.ListField(db.EmbeddedDocumentField('Language'))
+    language_speaking = db.ListField(db.EmbeddedDocumentField('Language'))
+
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
+    
+
+"""class Language(db.Document):
+    language_name = db.StringField()
+    
+    def __repr__(self):
+        return f"Language('{self.language_name}')"""
+    
