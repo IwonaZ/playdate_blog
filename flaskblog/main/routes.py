@@ -1,5 +1,5 @@
-from flask import render_template, request, Blueprint
-from flaskblog.models import Post
+from flask import render_template, request, Blueprint, current_app
+from flaskblog.models import Post, User
 
 main = Blueprint('main', __name__)
 
@@ -9,11 +9,15 @@ main = Blueprint('main', __name__)
 def home():
     page = request.args.get('page', 1, type=int)
     #posts = Post.objects.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
-    posts = Post.objects.all()
-    print(posts)
+    posts = Post.objects.order_by('-date_posted')
+    #posts = Post.objects.all()
     return render_template('home.html', posts=posts)
-
 
 @main.route("/about")
 def about():
     return render_template('about.html', title='About')
+
+'''@main.route("/map")
+def map():
+    users = User.objects.all()
+    return render_template('map.html', user=users, map_key=current_app.config["GOOGLE_MAPS_API_KEY"])'''

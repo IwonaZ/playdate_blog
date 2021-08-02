@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect, request, Blueprint
+from flask import render_template, url_for, flash, redirect, request, Blueprint, current_app
 from flask_login import login_user, current_user, logout_user, login_required
 from flaskblog import db, bcrypt
 from flaskblog.models import User, Post
@@ -17,10 +17,12 @@ def register():
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        user.address=form.address.data 
+        user.location = [float(form.lng.data),float(form.lat.data)]
         user.save()
         flash('Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('users.login'))
-    return render_template('register.html', title='Register', form=form)
+    return render_template('register.html', title='Register', form=form, legend='Register', map_key=current_app.config["GOOGLE_MAPS_API_KEY"])
 
 
 @users.route("/login", methods=['GET', 'POST'])
@@ -55,15 +57,20 @@ def account():
             current_user.image_file = picture_file
         current_user.username = form.username.data
         current_user.email = form.email.data
+        current_user.address=form.address.data 
+        current_user.location = [float(form.lng.data),float(form.lat.data)]
         current_user.save()
         flash('Your account has been updated!', 'success')
         return redirect(url_for('users.account'))
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
+        form.address.data = current_user.address
+        form.lng.data = current_user.location['coordinates'][0] if current_user.location != None else ''
+        form.lat.data = current_user.location['coordinates'][1] if current_user.location != None else ''
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template('account.html', title='Account',
-                           image_file=image_file, form=form)
+                           image_file=image_file, form=form, legend='Update Post', map_key=current_app.config["GOOGLE_MAPS_API_KEY"])
 
 
 @users.route("/user/<string:username>")

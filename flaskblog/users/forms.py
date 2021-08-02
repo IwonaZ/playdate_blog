@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, HiddenField
 from wtforms import validators
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_login import current_user
@@ -15,7 +15,11 @@ class RegistrationForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password',
                                      validators=[DataRequired(), EqualTo('password')])
+    address = HiddenField('Address', validators=[DataRequired()])
+    lat = HiddenField("lat") 
+    lng = HiddenField("lng")
     submit = SubmitField('Sign Up')
+
 
     def validate_username(self, username):
         user = User.objects(username=username.data).first()
@@ -42,6 +46,9 @@ class UpdateAccountForm(FlaskForm):
     email = StringField('Email',
                         validators=[DataRequired(), Email()])
     picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
+    address = HiddenField('Update Address', validators=[DataRequired()])
+    lat = HiddenField("lat") 
+    lng = HiddenField("lng")
     submit = SubmitField('Update')
 
     def validate_username(self, username):

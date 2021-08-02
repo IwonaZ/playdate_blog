@@ -1,5 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
+<script src="{{ url_for('static', filename='js/map-address.js') }}"></script>
+
     <div class="content-section">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
@@ -32,6 +34,7 @@
                         {{ form.email(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
+                
                 <div class="form-group">
                     {{ form.password.label(class="form-control-label") }}
                     {% if form.password.errors %}
@@ -58,6 +61,38 @@
                         {{ form.confirm_password(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
+                <div class="form-group address">
+                    {{ form.address.label(class="form-control-label") }} {% if
+                    form.address.errors %}
+                    <div id="addressField">
+                      <input
+                        id="autocomplete"
+                        placeholder="Enter your address"
+                        type="text"
+                        class="form-control"
+                      />
+                    </div>
+                    <!-- <p id="details"></p> -->
+                    <div class="invalid-feedback">
+                      {% for error in form.address.errors %}
+                      <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                    {% else %}
+                    <div id="addressField">
+                      <input
+                        id="autocomplete"
+                        placeholder="Enter your address"
+                        type="text"
+                        class="form-control"
+                        value={{form.address.data}}
+                      />
+                    </div>
+                    <p id="details"></p>
+                    <p id="map"></p>
+      
+                    {% endif %}
+                  </div>
             </fieldset>
             <div class="form-group">
                 {{ form.submit(class="btn btn-outline-info") }}
@@ -69,4 +104,8 @@
             Already Have An Account? <a class="ml-2" href="{{ url_for('users.login') }}">Sign In</a>
         </small>
     </div>
+    <script
+  async
+  src="https://maps.googleapis.com/maps/api/js?key={{map_key}}&libraries=places&callback=initAutocomplete"
+></script>
 {% endblock content %}

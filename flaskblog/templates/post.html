@@ -14,7 +14,12 @@
         {% endif %}
       </div>
       <h2 class="article-title">{{ post.title }}</h2>
+      <p class="article-content">Child's age: {{ post.age }}</p>
+      <p class="article-content">Child's gender: {{ post.gender }}</p>
+      <p class="article-content"> Speaking: {{ post.language_speaking }}</p>
+      <p class="article-content"> Learning: {{ post.language_learning }}</p>
       <p class="article-content">{{ post.content }}</p>
+      <p class="text-center"><small><strong>Views:</strong> {{post.views}}</small></p>
     </div>
   </article>
   <!-- Modal -->

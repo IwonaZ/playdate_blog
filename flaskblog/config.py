@@ -10,9 +10,9 @@ class Config:
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ.get('EMAIL_USER')
     MAIL_PASSWORD = os.environ.get('EMAIL_PASS')
-    
+    GOOGLE_MAPS_API_KEY = 'AIzaSyBY4Ii0zKMTLWUL0JwERm_xiX9ztdZiwws'
     MONGODB_SETTINGS = {
-        'username': 'IwonaZ',
-        'password': 'Polska1410',
-        'host': 'mongodb+srv://cluster0.u2lpx.mongodb.net/mongoblog'
+        'username': os.environ.get('MONGODB_BLOG_USERNAME'),
+        'password': os.environ.get('MONGODB_BLOG_PASSWORD'),
+        'host': os.environ.get('MONGODB_DATABASE_BLOG_URI')
         }

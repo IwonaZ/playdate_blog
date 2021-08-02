@@ -20,7 +20,7 @@
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
-          <a class="navbar-brand mr-4" href="/">Flask Blog</a>
+          <a class="navbar-brand mr-4" href="/">Polyglot Playdate</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -28,6 +28,8 @@
             <div class="navbar-nav mr-auto">
               <a class="nav-item nav-link" href="{{ url_for('main.home') }}">Home</a>
               <a class="nav-item nav-link" href="{{ url_for('main.about') }}">About</a>
+              <a class="nav-item nav-link"href="{{ url_for('posts.post_map') }}">Map</a>
+
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
@@ -60,13 +62,16 @@
         </div>
         <div class="col-md-4">
           <div class="content-section">
-            <h3>Our Sidebar</h3>
-            <p class='text-muted'>You can put any information here you'd like.
+            <h3>Quick Search</h3>
+            <p class='text-muted'>
               <ul class="list-group">
-                <li class="list-group-item list-group-item-light">Latest Posts</li>
-                <li class="list-group-item list-group-item-light">Announcements</li>
-                <li class="list-group-item list-group-item-light">Calendars</li>
-                <li class="list-group-item list-group-item-light">etc</li>
+                <li class="list-group-item list-group-item-light"><a href="{{ url_for('posts.language_search', language='English') }}">English speakers</a></li>
+                <li class="list-group-item list-group-item-light"><a href="{{ url_for('posts.language_search', language='German') }}">German speakers</a></li>
+                <li class="list-group-item list-group-item-light"><a href="{{ url_for('posts.language_search', language='Spanish') }}">Spanish speakers</a></li>
+                <li class="list-group-item list-group-item-light"><a href="{{ url_for('posts.language_search', language='French') }}">French speakers</a></li>
+                <li class="list-group-item list-group-item-light"><a href="{{ url_for('posts.age_search', age=3)  }}">Toddlers(under 3 years old)</a></li>
+                <li class="list-group-item list-group-item-light"><a href="{{ url_for('posts.age_search', age=3) }}">Preschool (between the ages of 3 and 5 years)</a></li>
+                <li class="list-group-item list-group-item-light"><a href="{{ url_for('posts.age_search', age=6) }}">School Age (6 years old and above)</a></li>
               </ul>
             </p>
           </div>
@@ -77,7 +82,7 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
