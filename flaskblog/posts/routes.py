@@ -29,6 +29,7 @@ def post(post_id):
     return render_template('post.html', title=post.title, post=post)
 
 @posts.route("/post/map")
+@login_required
 def post_map():
     posts = Post.objects.all()
     return render_template('map.html', posts=posts, map_key=current_app.config["GOOGLE_MAPS_API_KEY"])
