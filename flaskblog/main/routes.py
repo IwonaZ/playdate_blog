@@ -17,7 +17,4 @@ def home():
 def about():
     return render_template('about.html', title='About')
 
-'''@main.route("/map")
-def map():
-    users = User.objects.all()
-    return render_template('map.html', user=users, map_key=current_app.config["GOOGLE_MAPS_API_KEY"])'''
+

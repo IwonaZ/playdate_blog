@@ -13,9 +13,10 @@ posts = Blueprint('posts', __name__)
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(title=form.title.data, content=form.content.data, user_id=current_user, age=form.age.data, gender=form.gender.data)
+        post = Post(title=form.title.data, content=form.content.data, user_id=current_user, age=form.age.data)
         post.language_speaking = form.language_speaking.data
         post.language_learning = form.language_learning.data
+        post.gender=form.gender.data
         post.save()
         flash('Your post has been created!', 'success')
         return redirect(url_for('main.home'))
@@ -34,25 +35,22 @@ def post_map():
     posts = Post.objects.all()
     return render_template('map.html', posts=posts, map_key=current_app.config["GOOGLE_MAPS_API_KEY"])
 
-@posts.route("/post/language/<language>", methods=['GET', 'POST'])
+@posts.route("/post/language/<language>")
 @login_required
 def language_search(language):
     posts = Post.objects(language_speaking=language).order_by('-date_posted')
     return render_template('home.html', posts=posts)
 
-@posts.route("/post/age/<age>", methods=['GET', 'POST'])
+
+@posts.route("/post/age/<compare>/<my_age>")
 @login_required
-def age_search(age):
-    posts = Post.objects(age=age)
-    toddlers = Post.objects.filter(age==3 or age==2 or age==1) 
+def age_search(compare,my_age):
+    if compare == "g":
+        posts = Post.objects(age__gte=my_age).order_by('-date_posted')
+    else:
+        posts = Post.objects(age__lte=my_age).order_by('-date_posted')
     return render_template('home.html', posts=posts)
 
-'''@posts.route("/post/age/<search_age>")
-@login_required
-def age_search(search_age):
-    posts = Post.objects.get_or_404(title=search_age)
-    print(posts.user_id)
-    return render_template('home.html', posts=posts)'''
 
 @posts.route("/post/<post_id>/update", methods=['GET', 'POST'])
 @login_required

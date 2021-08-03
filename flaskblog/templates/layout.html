@@ -69,9 +69,8 @@
                 <li class="list-group-item list-group-item-light"><a href="{{ url_for('posts.language_search', language='German') }}">German speakers</a></li>
                 <li class="list-group-item list-group-item-light"><a href="{{ url_for('posts.language_search', language='Spanish') }}">Spanish speakers</a></li>
                 <li class="list-group-item list-group-item-light"><a href="{{ url_for('posts.language_search', language='French') }}">French speakers</a></li>
-                <li class="list-group-item list-group-item-light"><a href="{{ url_for('posts.age_search', age=3)  }}">Toddlers(under 3 years old)</a></li>
-                <li class="list-group-item list-group-item-light"><a href="{{ url_for('posts.age_search', age=3) }}">Preschool (between the ages of 3 and 5 years)</a></li>
-                <li class="list-group-item list-group-item-light"><a href="{{ url_for('posts.age_search', age=6) }}">School Age (6 years old and above)</a></li>
+                <li class="list-group-item list-group-item-light"><a href="{{ url_for('posts.age_search', my_age=5, compare='l')  }}">Preschool(under 5 years old)</a></li>
+                <li class="list-group-item list-group-item-light"><a href="{{ url_for('posts.age_search', my_age=6, compare='g') }}">School Age (6 years old and above)</a></li>
               </ul>
             </p>
           </div>
